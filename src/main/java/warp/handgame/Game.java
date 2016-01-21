@@ -15,7 +15,7 @@ public class Game {
 	public static final String PROMPT_USER_TURN = "Your turn: ";
 	public static final String HELP_MESSAGE = "Game instructions: Player input a character to throw or assistant command\n\t"
 			+ "Throw character: r(Rock), p(Paper), c(Scissors), l(Lizard), s(Spock)\n\t"
-			+ "Assistant command character: e(Exit), Help(h)\n";
+			+ "Assist command character: e(Exit), Help(h)\n";
 	public static final char EXIT = 'e';
 	public static final char HELP = 'h';
 	
@@ -49,39 +49,71 @@ public class Game {
 		System.out.print(PROMPT_USER_TURN);
 	}
 	
-	public void readInputCommand(char command) {
-		if (EXIT == command) {	// no null checking required
+	/**
+	 * @param command
+	 * @return 
+	 * 	true - the game should continue
+	 * 	false - the game end
+	 */
+	public boolean readInputCommand(char command) {
+		// assist command
+		if (EXIT == command) {
 			System.out.println("Exit");
-			System.exit(0);
+			return false;
 		}
 		if (HELP == command) {
 			printHelp();
+			return true;
 		}
-		else {
-			Shapes player = Shapes.fromChar(command);
-			Shapes robot = RandomShapesHelper.get();
-			if (checkGameEnd(player, robot)) {
-				System.out.println("Game end");
-				System.exit(0);
-			}
+
+		// game command
+		Shapes player = Shapes.fromChar(command);
+		Shapes robot = RandomShapesHelper.get();
+		if (checkGameEnd(player, robot)) {
+			System.out.println("Game end");
+			return false;
 		}
+		return true;
+	}
+	
+	public char parseInput(String line) {
+		if (line == null || line.length() > 1) {
+			return 0;
+		}
+		char c = Character.toLowerCase(line.charAt(0));
+		if (c == EXIT || c == HELP || Shapes.isShapes(c))
+			return c;
+		
+		return 0;
 	}
 	
 	public void start() {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String line;
+		char command = 0;
 		System.out.print("Game start\n");
 		printHelp();
 		printPrompt();
 		
 		try {
 			while ((line = in.readLine()) != null && line.length() != 0) {
-				char command = Character.toLowerCase(line.charAt(0));
-				readInputCommand(command);
-				printPrompt();
+				if ((command = parseInput(line)) != 0) {
+					if (readInputCommand(command)) {
+						printPrompt();
+					}
+					else {
+						System.exit(0);
+					}
+				}
+				else {
+					System.out.println("Invalid command: " + line);
+					printHelp();
+					printPrompt();
+				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {	// other unexpected exception to end the game
 			e.printStackTrace();
 		}
 	}

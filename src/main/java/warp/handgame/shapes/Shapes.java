@@ -35,11 +35,24 @@ public enum Shapes {
 		return null;
 	}
 	
+	public static boolean isShapes(char c) {
+		switch (c) {
+		case 'r':
+		case 'p':
+		case 'c':
+		case 'l':
+		case 's':
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 	/*
 	 * Rock(r), Paper(p), Scissors(c), Lizard(l), Spock(s) or Exit(e)
 	 */
 	public static Shapes fromChar(char c) {
-		switch (Character.toLowerCase(c)) {
+		switch (c) {
 		case 'r': return Shapes.ROCK;
 		case 'p': return Shapes.PAPER;
 		case 'c': return Shapes.SCISSORS;
@@ -62,6 +75,8 @@ public enum Shapes {
 	 * < 0 means s2 win
 	 */
 	public static int against(Shapes s1, Shapes s2) {
+		if (s1 == null || s2 == null) 
+			return 0;
 		if (s1 == s2)
 			return 0;
 
