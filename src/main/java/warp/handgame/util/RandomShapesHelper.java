@@ -1,14 +1,12 @@
 package warp.handgame.util;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import warp.handgame.shapes.Shapes;
-import warp.handgame.shapes.UnknownShapesException;
 
 public final class RandomShapesHelper {
 	private static Random m_randomGenerator = new Random(System.currentTimeMillis());
 
-	public static Shapes get() throws UnknownShapesException {
+	public static Shapes get() {
 		int n = Shapes.size();
 		int i = m_randomGenerator.nextInt(n);
 		return Shapes.fromInt(i);

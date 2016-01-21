@@ -35,10 +35,49 @@ public enum Shapes {
 		return null;
 	}
 
-	public static Shapes fromInt(int i) throws UnknownShapesException {
+	public static Shapes fromInt(int i) {
 		if (i > Shapes.size()) {
-			throw new UnknownShapesException();
+			return null;
 		}
 		return Shapes.values()[i];
+	}
+	
+	/*
+	 * 1) same 0> tied
+	 * > 0 means s1 win
+	 * < 0 means s2 win
+	 */
+	public static int against(Shapes s1, Shapes s2) {
+		if (s1 == s2)
+			return 0;
+
+		switch (s1) {
+		case ROCK: {
+			if (s2 == SCISSORS || s2 == LIZARD)
+				return 1;
+			return -1;
+		}
+		case PAPER: {
+			if (s2 == SPOCK || s2 == ROCK)
+				return 1;
+			return -1;
+		}
+		case SCISSORS: {
+			if (s2 == LIZARD || s2 == PAPER)
+				return 1;
+			return -1;
+		}
+		case SPOCK: {
+			if (s2 == Shapes.SCISSORS || s2 == ROCK)
+				return 1;
+			return -1;
+		}
+		case LIZARD: {
+			if (s2 == Shapes.SPOCK || s2 == PAPER)
+				return 1;
+			return -1;
+		}
+		}
+		return 0;
 	}
 }
