@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.apache.log4j.Logger;
+//import org.apache.log4j.PropertyConfigurator;
+
 import warp.handgame.shapes.Shapes;
 import warp.handgame.util.RandomShapesHelper;
 
@@ -15,9 +18,11 @@ public class Game {
 	public static final String PROMPT_USER_TURN = "Your turn: ";
 	public static final String HELP_MESSAGE = "Game instructions: Player input a character to throw or assistant command\n\t"
 			+ "Throw character: r(Rock), p(Paper), c(Scissors), l(Lizard), s(Spock)\n\t"
-			+ "Assist command character: e(Exit), Help(h)\n";
+			+ "Assist command character: e(Exit), Help(h)";
 	public static final char EXIT = 'e';
 	public static final char HELP = 'h';
+	
+	Logger logger = Logger.getLogger(Game.class);
 	
 	enum GAME_STATUS {
 		PLAYER_WIN,
@@ -28,25 +33,25 @@ public class Game {
 	public boolean checkGameEnd(Shapes player, Shapes robot) {
 		int result = Shapes.against(player, robot);
 		if (result > 0) {
-			System.out.println("Player win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Player win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
 			return true;
 		}
 		else if (result < 0) {
-			System.out.println("Computer win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Computer win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
 			return true;
 		}
 		else {
-			System.out.println("Tied\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Tied\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
 		}
 		return false;
 	}
 	
 	public void printHelp() {
-		System.out.print(HELP_MESSAGE);
+		logger.info(HELP_MESSAGE);
 	}
 
 	public void printPrompt() {
-		System.out.print(PROMPT_USER_TURN);
+		logger.info(PROMPT_USER_TURN);
 	}
 	
 	/**
@@ -58,7 +63,7 @@ public class Game {
 	public boolean readInputCommand(char command) {
 		// assist command
 		if (EXIT == command) {
-			System.out.println("Exit");
+			logger.info("Exit");
 			return false;
 		}
 		if (HELP == command) {
@@ -70,7 +75,7 @@ public class Game {
 		Shapes player = Shapes.fromChar(command);
 		Shapes robot = RandomShapesHelper.get();
 		if (checkGameEnd(player, robot)) {
-			System.out.println("Game end");
+			logger.info("Game end");
 			return false;
 		}
 		return true;
@@ -91,7 +96,8 @@ public class Game {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String line;
 		char command = 0;
-		System.out.print("Game start\n");
+		logger.info("\n\n=================================================");
+		logger.info("Game Start");
 		printHelp();
 		printPrompt();
 		
@@ -106,7 +112,7 @@ public class Game {
 					}
 				}
 				else {
-					System.out.println("Invalid command: " + line);
+					logger.error("Invalid command: " + line);
 					printHelp();
 					printPrompt();
 				}
@@ -119,6 +125,8 @@ public class Game {
 	}
 	
 	public static void main(String[] args) {
+//		PropertyConfigurator.configure("log4j.properties");
+		
 		Game game = new Game();
 		game.start();
 	}
