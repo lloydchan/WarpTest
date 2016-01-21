@@ -34,7 +34,21 @@ public enum Shapes {
 		}
 		return null;
 	}
-
+	
+	/*
+	 * Rock(r), Paper(p), Scissors(c), Lizard(l), Spock(s) or Exit(e)
+	 */
+	public static Shapes fromChar(char c) {
+		switch (Character.toLowerCase(c)) {
+		case 'r': return Shapes.ROCK;
+		case 'p': return Shapes.PAPER;
+		case 'c': return Shapes.SCISSORS;
+		case 'l': return Shapes.LIZARD;
+		case 's': return Shapes.SPOCK;
+		}
+		return null;
+	}
+	
 	public static Shapes fromInt(int i) {
 		if (i > Shapes.size()) {
 			return null;
