@@ -1,0 +1,100 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="ignoreResourceNotFound" value="false" /> <property name="ignoreUnresolvablePlaceholders" 
+		value="true" /> <property name="searchSystemEnvironment" value="false" /> 
+		<property name="locations"> <list> <value>classpath:myapp-${env:prod}.properties</value> 
+		</list> </property> </bean> -->
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
+
+	<bean id="LifeCycleContainer" class="warp.common.LifeCycleContainer" />
+<!-- 
+	<bean id="IndexTreePanel" class="com.it.gui.index.tree.IndexTreePanel">
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="BMS" />
+		<constructor-arg ref="PMS" />
+	</bean>
+
+	<bean id="IndexCompositionPanel" class="com.it.gui.index.tree.IndexCompositionPanel">
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="IndexTreePanel" />
+	</bean>
+	<bean id="IndexConfigurationPanel" class="com.it.gui.index.tree.IndexConfigurationPanel">
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="IndexTreePanel" />
+	</bean>
+
+	<bean id="IndexPanel" class="com.it.gui.index.IndexPanel">
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="SDS" />
+	</bean>
+	<bean id="OrderPanel" class="com.it.oms.gui.OrderPanel">
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="OMS" />
+		<constructor-arg>
+			<list>
+				<ref bean="ExecPanel"/>
+			</list>
+		</constructor-arg>
+		<constructor-arg value="trades.csv" />
+	</bean>
+	
+	<bean id="ExecPanel" class="com.it.oms.gui.ExecPanel">
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="OMS" />
+		<constructor-arg value="exec.csv" />
+	</bean>
+
+	<bean id="WavePanel" class="com.it.gui.basket.WavePanel">
+		<constructor-arg ref="WMS" />
+		<constructor-arg>
+			<list>
+				<ref bean="OrderPanel"/>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="OneClickPanel" class="com.it.gui.oneclick.OneClickPanel">
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="MDS" />
+		<constructor-arg ref="OMS" />
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="IndexTreePanel" />
+		<constructor-arg ref="ExchangeAvailableAccounts" />
+		<constructor-arg ref="ExchangeDefaultAccounts" />
+		<constructor-arg value="One Click 1" />
+	</bean>
+	<bean id="OneClickPanel2" class="com.it.gui.oneclick.OneClickPanel">
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="MDS" />
+		<constructor-arg ref="OMS" />
+		<constructor-arg ref="IDM" />
+		<constructor-arg ref="IndexTreePanel" />
+		<constructor-arg ref="ExchangeAvailableAccounts" />
+		<constructor-arg ref="ExchangeDefaultAccounts" />
+		<constructor-arg value="One Click 2" />
+	</bean>
+	<bean id="OrderEntry" class="com.it.oms.gui.OrderEntry">
+		<constructor-arg ref="SDS" />
+		<constructor-arg ref="OMS" />
+
+		<constructor-arg ref="ExchangeAvailableAccounts" />
+		<constructor-arg ref="ExchangeDefaultAccounts" />
+	</bean>
+	
+	<bean id="TimerPanel" class="com.it.trading.strategy.timer.TimerPanel">
+		<constructor-arg ref="TimerStrategyService" />
+	</bean>
+-->
+<!-- 	<bean id="gui" class="warp.handgame.gui.GameFrame" depends-on="LoadDb">-->
+	<bean id="gui" class="warp.handgame.gui.GameFrame">
+		<constructor-arg value="HandGame rock-paper-scissors-lizard-spock" />
+	</bean>
+</beans>
