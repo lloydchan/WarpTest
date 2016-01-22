@@ -1,6 +1,7 @@
 package warp.handgame.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
@@ -15,7 +16,6 @@ import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
-import warp.handgame.gui.util.GameImage;
 import warp.handgame.shapes.Shapes;
 
 public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener {
@@ -65,13 +65,14 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	@Override
 	public void start() {
-		this.getContentPane().setPreferredSize(new Dimension(615, 492));
-
-		GameImage btn1 = new GameImage("resources/images/rock.png", Shapes.ROCK);
-		GameImage btn2 = new GameImage("resources/images/paper.png", Shapes.PAPER);
-		GameImage btn3 = new GameImage("resources/images/scissors.png", Shapes.SCISSORS);
-		GameImage btn4 = new GameImage("resources/images/lizard.png", Shapes.LIZARD);
-		GameImage btn5 = new GameImage("resources/images/spock.png", Shapes.SPOCK);
+		this.getContentPane().setPreferredSize(new Dimension(800, 500));
+		this.setBackground(Color.WHITE);
+		
+		ShapesButton btn1 = new ShapesButton("resources/images/rock.png", Shapes.ROCK);
+		ShapesButton btn2 = new ShapesButton("resources/images/paper.png", Shapes.PAPER);
+		ShapesButton btn3 = new ShapesButton("resources/images/scissors.png", Shapes.SCISSORS);
+		ShapesButton btn4 = new ShapesButton("resources/images/lizard.png", Shapes.LIZARD);
+		ShapesButton btn5 = new ShapesButton("resources/images/spock.png", Shapes.SPOCK);
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel choose = new JPanel();
 		choose.setLayout(new FlowLayout());
