@@ -8,7 +8,7 @@ import warp.handgame.shapes.Shapes;
  */
 public class GameTest extends TestCase {
 	
-	Game m_game = new Game();
+	GameText m_game = new GameText();
 	
 	/**
 	 * Rigourous Test :-)

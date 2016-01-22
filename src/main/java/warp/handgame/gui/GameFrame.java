@@ -12,15 +12,22 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
 import warp.handgame.shapes.Shapes;
+import warp.handgame.util.RandomShapesHelper;
 
-public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener {
+public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener, ShapesButton.Event {
+	Logger logger = Logger.getLogger(GameFrame.class);
+	
 	private final List<IStoppable> stoppables = new ArrayList<IStoppable>();
-
+	private Shapes player;
+	private Shapes robot;
+	
 	public GameFrame(String title) {
 		setTitle(title);
 		addWindowListener(this);
@@ -68,11 +75,11 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 		this.getContentPane().setPreferredSize(new Dimension(800, 500));
 		this.setBackground(Color.WHITE);
 		
-		ShapesButton btn1 = new ShapesButton("resources/images/rock.png", Shapes.ROCK);
-		ShapesButton btn2 = new ShapesButton("resources/images/paper.png", Shapes.PAPER);
-		ShapesButton btn3 = new ShapesButton("resources/images/scissors.png", Shapes.SCISSORS);
-		ShapesButton btn4 = new ShapesButton("resources/images/lizard.png", Shapes.LIZARD);
-		ShapesButton btn5 = new ShapesButton("resources/images/spock.png", Shapes.SPOCK);
+		ShapesButton btn1 = new ShapesButton("resources/images/rock.png", Shapes.ROCK, this);
+		ShapesButton btn2 = new ShapesButton("resources/images/paper.png", Shapes.PAPER, this);
+		ShapesButton btn3 = new ShapesButton("resources/images/scissors.png", Shapes.SCISSORS, this);
+		ShapesButton btn4 = new ShapesButton("resources/images/lizard.png", Shapes.LIZARD, this);
+		ShapesButton btn5 = new ShapesButton("resources/images/spock.png", Shapes.SPOCK, this);
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel choose = new JPanel();
 		choose.setLayout(new FlowLayout());
@@ -116,5 +123,13 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 	public void remove(ILifeCycle lifecycle) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onPressed(IShapes shape) {
+		robot = RandomShapesHelper.get();
+		shape.getIcon();
+		shape.getShape();
+//logger.debug("onPressed callback: " + shape);
 	}
 }

@@ -14,7 +14,7 @@ import warp.handgame.util.RandomShapesHelper;
  * program to execute
  *
  */
-public class Game {
+public class GameText {
 	public static final String PROMPT_USER_TURN = "Your turn: ";
 	public static final String HELP_MESSAGE = "Game instructions: Player input a character to throw or assistant command\n\t"
 			+ "Throw character: r(Rock), p(Paper), c(Scissors), l(Lizard), s(Spock)\n\t"
@@ -22,7 +22,7 @@ public class Game {
 	public static final char EXIT = 'e';
 	public static final char HELP = 'h';
 	
-	Logger logger = Logger.getLogger(Game.class);
+	Logger logger = Logger.getLogger(GameText.class);
 	
 	enum GAME_STATUS {
 		PLAYER_WIN,
@@ -127,7 +127,7 @@ public class Game {
 	public static void main(String[] args) {
 //		PropertyConfigurator.configure("log4j.properties");
 		
-		Game game = new Game();
+		GameText game = new GameText();
 		game.start();
 	}
 }
