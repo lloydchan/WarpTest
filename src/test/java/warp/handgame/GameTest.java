@@ -1,7 +1,7 @@
 package warp.handgame;
 
 import junit.framework.TestCase;
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 
 /**
  * Unit test for simple App.

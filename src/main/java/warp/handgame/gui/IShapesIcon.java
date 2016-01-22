@@ -2,9 +2,9 @@ package warp.handgame.gui;
 
 import javax.swing.ImageIcon;
 
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 
-interface IShapes {
+interface IShapesIcon {
 	public Shapes getShape();
 	public ImageIcon getIcon();
 }

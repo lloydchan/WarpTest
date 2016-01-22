@@ -1,7 +1,7 @@
 package warp.handgame.util;
 import java.util.Random;
 
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 
 public final class RandomShapesHelper {
 	private static Random m_randomGenerator = new Random(System.currentTimeMillis());

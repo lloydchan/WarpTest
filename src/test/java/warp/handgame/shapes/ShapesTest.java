@@ -2,10 +2,7 @@ package warp.handgame.shapes;
 //import static org.junit.Assert.*;
 
 import junit.framework.TestCase;
-
-//import org.junit.Test;
-
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 
 public class ShapesTest extends TestCase {
 

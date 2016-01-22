@@ -1,17 +1,13 @@
-package warp.handgame.shapes;
+package warp.handgame.types;
 
 /**
  * @author Lloyd rock-paper-scissors-lizard-spock
  */
 public enum Shapes {
-	ROCK("Rock"), 
-	PAPER("Paper"), 
-	SCISSORS("Scissors"), 
-	LIZARD("Lizard"), 
-	SPOCK("Spock");
+	ROCK("Rock"), PAPER("Paper"), SCISSORS("Scissors"), LIZARD("Lizard"), SPOCK("Spock");
 
 	private String text;
-	
+
 	Shapes(String text) {
 		this.text = text;
 	}
@@ -23,7 +19,7 @@ public enum Shapes {
 	public static int size() {
 		return Shapes.values().length;
 	}
-	
+
 	public static Shapes fromString(String text) {
 		if (text != null) {
 			for (Shapes v : Shapes.values()) {
@@ -34,7 +30,7 @@ public enum Shapes {
 		}
 		return null;
 	}
-	
+
 	public static boolean isShapes(char c) {
 		switch (c) {
 		case 'r':
@@ -47,35 +43,38 @@ public enum Shapes {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * Rock(r), Paper(p), Scissors(c), Lizard(l), Spock(s) or Exit(e)
 	 */
 	public static Shapes fromChar(char c) {
 		switch (c) {
-		case 'r': return Shapes.ROCK;
-		case 'p': return Shapes.PAPER;
-		case 'c': return Shapes.SCISSORS;
-		case 'l': return Shapes.LIZARD;
-		case 's': return Shapes.SPOCK;
+		case 'r':
+			return Shapes.ROCK;
+		case 'p':
+			return Shapes.PAPER;
+		case 'c':
+			return Shapes.SCISSORS;
+		case 'l':
+			return Shapes.LIZARD;
+		case 's':
+			return Shapes.SPOCK;
 		}
 		return null;
 	}
-	
+
 	public static Shapes fromInt(int i) {
 		if (i > Shapes.size()) {
 			return null;
 		}
 		return Shapes.values()[i];
 	}
-	
+
 	/*
-	 * 1) same 0> tied
-	 * > 0 means s1 win
-	 * < 0 means s2 win
+	 * 1) same 0> tied > 0 means s1 win < 0 means s2 win
 	 */
 	public static int against(Shapes s1, Shapes s2) {
-		if (s1 == null || s2 == null) 
+		if (s1 == null || s2 == null)
 			return 0;
 		if (s1 == s2)
 			return 0;

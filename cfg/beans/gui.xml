@@ -13,6 +13,27 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
 
 	<bean id="LifeCycleContainer" class="warp.common.LifeCycleContainer" />
+	
+	<bean id="ShapesIconInitializer"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="warp.handgame.gui.ShapesIconFactory.init" />
+		<property name="arguments">
+			<list>
+				<bean class="java.util.HashMap">
+					<constructor-arg>
+						<map>
+							<entry key="ROCK" value="resources/images/rock.png" />
+							<entry key="SCISSORS" value="resources/images/scissors.png" />
+							<entry key="PAPER" value="resources/images/paper.png" />
+							<entry key="LIZARD" value="resources/images/lizard.png" />
+							<entry key="SPOCK" value="resources/images/spock.png" />
+						</map>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 <!-- 
 	<bean id="IndexTreePanel" class="com.it.gui.index.tree.IndexTreePanel">
 		<constructor-arg ref="IDM" />
@@ -94,7 +115,7 @@
 	</bean>
 -->
 <!-- 	<bean id="gui" class="warp.handgame.gui.GameFrame" depends-on="LoadDb">-->
-	<bean id="gui" class="warp.handgame.gui.GameFrame">
+	<bean id="gui" class="warp.handgame.gui.GameFrame"  >
 		<constructor-arg value="HandGame rock-paper-scissors-lizard-spock" />
 	</bean>
 </beans>

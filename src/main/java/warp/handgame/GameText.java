@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import org.apache.log4j.Logger;
 //import org.apache.log4j.PropertyConfigurator;
 
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 import warp.handgame.util.RandomShapesHelper;
 
 /**

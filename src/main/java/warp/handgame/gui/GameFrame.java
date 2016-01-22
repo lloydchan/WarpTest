@@ -18,7 +18,7 @@ import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 import warp.handgame.util.RandomShapesHelper;
 
 public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener, ShapesButton.Event {
@@ -75,19 +75,12 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 		this.getContentPane().setPreferredSize(new Dimension(800, 500));
 		this.setBackground(Color.WHITE);
 		
-		ShapesButton btn1 = new ShapesButton("resources/images/rock.png", Shapes.ROCK, this);
-		ShapesButton btn2 = new ShapesButton("resources/images/paper.png", Shapes.PAPER, this);
-		ShapesButton btn3 = new ShapesButton("resources/images/scissors.png", Shapes.SCISSORS, this);
-		ShapesButton btn4 = new ShapesButton("resources/images/lizard.png", Shapes.LIZARD, this);
-		ShapesButton btn5 = new ShapesButton("resources/images/spock.png", Shapes.SPOCK, this);
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel choose = new JPanel();
 		choose.setLayout(new FlowLayout());
-		choose.add(btn1);
-		choose.add(btn2);
-		choose.add(btn3);
-		choose.add(btn4);
-		choose.add(btn5);
+		for (ShapesIcon i: ShapesIconFactory.getShapesIcon()) {
+			choose.add(new ShapesButton(i, this));
+		}
 		this.getContentPane().add(choose, BorderLayout.SOUTH);
 
 		this.setResizable(false);
@@ -126,10 +119,10 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 	}
 
 	@Override
-	public void onPressed(IShapes shape) {
+	public void onPressed(IShapesIcon shape) {
 		robot = RandomShapesHelper.get();
 		shape.getIcon();
 		shape.getShape();
-//logger.debug("onPressed callback: " + shape);
+logger.debug("onPressed callback: " + shape);
 	}
 }

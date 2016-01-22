@@ -1,7 +1,7 @@
 package warp.handgame.util;
 
 import junit.framework.TestCase;
-import warp.handgame.shapes.Shapes;
+import warp.handgame.types.Shapes;
 
 public class RandomShapesHelperTest extends TestCase {
 
