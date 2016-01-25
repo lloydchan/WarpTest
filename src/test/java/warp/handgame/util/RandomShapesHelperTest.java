@@ -6,7 +6,7 @@ import warp.handgame.types.Shapes;
 public class RandomShapesHelperTest extends TestCase {
 
 	public void testGetShapes() {
-		Shapes s = RandomShapesHelper.get();
+		Shapes s = RandomHelper.getShape();
 		switch (s) {
 		case ROCK:
 		case PAPER:

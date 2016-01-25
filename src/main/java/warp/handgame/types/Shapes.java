@@ -1,10 +1,13 @@
 package warp.handgame.types;
 
+import java.util.Random;
+
 /**
  * @author Lloyd rock-paper-scissors-lizard-spock
  */
 public enum Shapes {
-	ROCK("Rock"), PAPER("Paper"), SCISSORS("Scissors"), LIZARD("Lizard"), SPOCK("Spock");
+	ROCK("Rock"), PAPER("Paper"), SCISSORS("Scissors"), LIZARD("Lizard"), SPOCK("Spock"), 
+	UNKNOWN("Unknown");	// player not yet choose default value
 
 	private String text;
 
@@ -70,6 +73,10 @@ public enum Shapes {
 		return Shapes.values()[i];
 	}
 
+	public static int range() {
+		return Shapes.size() - 1;
+	}
+	
 	/*
 	 * 1) same 0> tied > 0 means s1 win < 0 means s2 win
 	 */

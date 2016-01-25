@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 //import org.apache.log4j.PropertyConfigurator;
 
 import warp.handgame.types.Shapes;
-import warp.handgame.util.RandomShapesHelper;
+import warp.handgame.util.RandomHelper;
 
 /**
  * program to execute
@@ -73,7 +73,7 @@ public class GameText {
 
 		// game command
 		Shapes player = Shapes.fromChar(command);
-		Shapes robot = RandomShapesHelper.get();
+		Shapes robot = RandomHelper.getShape();
 		if (checkGameEnd(player, robot)) {
 			logger.info("Game end");
 			return false;

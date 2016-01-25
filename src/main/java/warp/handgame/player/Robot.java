@@ -1,14 +1,16 @@
 package warp.handgame.player;
 
-import java.util.Random;
-
-import warp.handgame.action.Play;
 import warp.handgame.types.Shapes;
-import warp.handgame.util.RandomShapesHelper;
+import warp.handgame.util.RandomHelper;
 
-public class Robot implements Play {
+public class Robot extends Player {
 	
-	public Shapes doThrow() {
-		return RandomShapesHelper.get();
+	public Robot(String name) {
+		super(name);
+	}
+	
+	public Shapes next() {
+		this.choice = RandomHelper.getShape();
+		return this.choice;
 	}
 }

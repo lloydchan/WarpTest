@@ -9,6 +9,7 @@ import javax.swing.JButton;
 
 import org.apache.log4j.Logger;
 
+import warp.handgame.types.IShapes;
 import warp.handgame.types.Shapes;
 
 @SuppressWarnings("serial")
@@ -17,7 +18,7 @@ public class ShapesButton extends JButton implements ActionListener {
 		/**
 		 * callback when pressed
 		 */
-		void onPressed(IShapesIcon s);
+		void onPressed(Shapes s);
 	}
 
 	Logger logger = Logger.getLogger(ShapesButton.class);
@@ -48,7 +49,7 @@ public class ShapesButton extends JButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.handler.onPressed(this.shapeIcon);
+		this.handler.onPressed(this.shapeIcon.getShape());
 	}
 	
 	@Override

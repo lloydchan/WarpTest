@@ -3,14 +3,12 @@ package warp.handgame.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
@@ -18,18 +16,28 @@ import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
+import warp.handgame.player.Player;
+import warp.handgame.player.Robot;
+import warp.handgame.types.IShapes;
 import warp.handgame.types.Shapes;
-import warp.handgame.util.RandomShapesHelper;
 
+@SuppressWarnings("serial")
 public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener, ShapesButton.Event {
 	Logger logger = Logger.getLogger(GameFrame.class);
 	
 	private final List<IStoppable> stoppables = new ArrayList<IStoppable>();
-	private Shapes player;
-	private Shapes robot;
+	private ResultPanel resultPanel;
 	
-	public GameFrame(String title) {
+	private final ShapesButtonPanel shapesButtonPanel;
+
+	public GameFrame(String title, String file) {
+		resultPanel = new ResultPanel();
+		shapesButtonPanel = new ShapesButtonPanel(this);
+		
 		setTitle(title);
+		getContentPane().setPreferredSize(new Dimension(800, 300));
+		setBackground(Color.WHITE);
+		setResizable(false);
 		addWindowListener(this);
 	}
 
@@ -72,18 +80,10 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	@Override
 	public void start() {
-		this.getContentPane().setPreferredSize(new Dimension(800, 500));
-		this.setBackground(Color.WHITE);
-		
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel choose = new JPanel();
-		choose.setLayout(new FlowLayout());
-		for (ShapesIcon i: ShapesIconFactory.getShapesIcon()) {
-			choose.add(new ShapesButton(i, this));
-		}
-		this.getContentPane().add(choose, BorderLayout.SOUTH);
-
-		this.setResizable(false);
+		this.getContentPane().add(resultPanel, BorderLayout.NORTH);
+		this.getContentPane().add(shapesButtonPanel, BorderLayout.SOUTH);
+		
 		this.pack();
 		this.setVisible(true);
 	}
@@ -118,11 +118,10 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	}
 
+	// TODO: ignore
 	@Override
-	public void onPressed(IShapesIcon shape) {
-		robot = RandomShapesHelper.get();
-		shape.getIcon();
-		shape.getShape();
-logger.debug("onPressed callback: " + shape);
+	public void onPressed(Shapes s) {
+		resultPanel.onPressed(s);
+//logger.debug("onPressed callback: " + s);
 	}
 }

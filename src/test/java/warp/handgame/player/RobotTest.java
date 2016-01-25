@@ -10,13 +10,13 @@ public class RobotTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		m_robot = new Robot();
+		m_robot = new Robot("robot");
 	}
 
 	// @Test
-	public void testDoThrow() {
+	public void testNext() {
 		try {
-			m_robot.doThrow();
+			m_robot.next();
 		} catch (Exception e) {
 			fail("Robot doThrow fail. Should not have gotten an exception");
 		}

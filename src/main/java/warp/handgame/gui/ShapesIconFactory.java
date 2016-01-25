@@ -1,17 +1,31 @@
 package warp.handgame.gui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import org.apache.log4j.Logger;
+
 import warp.handgame.types.Shapes;
 
 public class ShapesIconFactory {
-	static final Map<Shapes, ShapesIcon> icons = new HashMap<Shapes, ShapesIcon>();
+	Logger logger = Logger.getLogger(ShapesIconFactory.class);
 	
+	static final Map<Shapes, ShapesIcon> icons = new HashMap<Shapes, ShapesIcon>();
 	public ShapesIconFactory() {
+	}
+	
+	public static ShapesIcon getShapesIcon(Shapes shape) {
+		return icons.get(shape);
 	}
 
 	public static List<ShapesIcon> getShapesIcon() {

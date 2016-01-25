@@ -3,11 +3,11 @@ import java.util.Random;
 
 import warp.handgame.types.Shapes;
 
-public final class RandomShapesHelper {
+public final class RandomHelper {
 	private static Random m_randomGenerator = new Random(System.currentTimeMillis());
 
-	public static Shapes get() {
-		int n = Shapes.size();
+	public static Shapes getShape() {
+		int n = Shapes.range();
 		int i = m_randomGenerator.nextInt(n);
 		return Shapes.fromInt(i);
 	}

@@ -9,9 +9,10 @@ import javax.swing.ImageIcon;
 
 import org.apache.log4j.Logger;
 
+import warp.handgame.types.IShapes;
 import warp.handgame.types.Shapes;
 
-public class ShapesIcon implements IShapesIcon {
+public class ShapesIcon implements IShapes, IIcon {
 	Logger logger = Logger.getLogger(ShapesIcon.class);
 
 	private ImageIcon icon;

@@ -27,6 +27,7 @@
 							<entry key="PAPER" value="resources/images/paper.png" />
 							<entry key="LIZARD" value="resources/images/lizard.png" />
 							<entry key="SPOCK" value="resources/images/spock.png" />
+							<entry key="UNKNOWN" value="resources/images/unknown.png" />
 						</map>
 					</constructor-arg>
 				</bean>
@@ -117,5 +118,6 @@
 <!-- 	<bean id="gui" class="warp.handgame.gui.GameFrame" depends-on="LoadDb">-->
 	<bean id="gui" class="warp.handgame.gui.GameFrame"  >
 		<constructor-arg value="HandGame rock-paper-scissors-lizard-spock" />
+		<constructor-arg value="resources/images/hk_gold_coin_1976.jpg" />
 	</bean>
 </beans>
