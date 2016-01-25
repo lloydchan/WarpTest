@@ -3,6 +3,7 @@ package warp.handgame.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -16,13 +17,9 @@ import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
-import warp.handgame.player.Player;
-import warp.handgame.player.Robot;
-import warp.handgame.types.IShapes;
-import warp.handgame.types.Shapes;
 
 @SuppressWarnings("serial")
-public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener, ShapesButton.Event {
+public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener {
 	Logger logger = Logger.getLogger(GameFrame.class);
 	
 	private final List<IStoppable> stoppables = new ArrayList<IStoppable>();
@@ -32,7 +29,7 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	public GameFrame(String title, String file) {
 		resultPanel = new ResultPanel();
-		shapesButtonPanel = new ShapesButtonPanel(this);
+		shapesButtonPanel = new ShapesButtonPanel(resultPanel);
 		
 		setTitle(title);
 		getContentPane().setPreferredSize(new Dimension(800, 300));
@@ -84,6 +81,9 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 		this.getContentPane().add(resultPanel, BorderLayout.NORTH);
 		this.getContentPane().add(shapesButtonPanel, BorderLayout.SOUTH);
 		
+		this.setLocation(100, 100);
+
+		
 		this.pack();
 		this.setVisible(true);
 	}
@@ -116,12 +116,5 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 	public void remove(ILifeCycle lifecycle) {
 		// TODO Auto-generated method stub
 
-	}
-
-	// TODO: ignore
-	@Override
-	public void onPressed(Shapes s) {
-		resultPanel.onPressed(s);
-//logger.debug("onPressed callback: " + s);
 	}
 }

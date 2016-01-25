@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
@@ -23,8 +25,9 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 	Logger logger = Logger.getLogger(Player.class);
 	
 	class PlayerPanel extends JPanel {
-		private static final String SCORE_TEXT = "Score ";
+		private static final String SCORE_TEXT = "Score : ";
 		private static final int FONT_SIZE = 20;
+		private final Color COLOR_WIN = new Color(0xF88017);
 		
 		JLabel nameLabel;
 		JLabel shapesIcon; 
@@ -51,6 +54,26 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 			this.add(scoreLabel, BorderLayout.SOUTH);
 		}
 
+	    @Override
+	    protected void paintComponent(Graphics grphcs) {
+	        super.paintComponent(grphcs);
+			shapesIcon.setIcon(ShapesIconFactory.getShapesIcon(player.getChoice()).getIcon());
+			scoreLabel.setText(SCORE_TEXT + player.getScoreText() + "   " + player.lastState());
+			switch (player.lastState()) {
+			case WIN:
+				scoreLabel.setForeground(COLOR_WIN);
+				break;
+			case LOSE:
+				scoreLabel.setForeground(Color.BLACK);
+				break;
+			case TIED:
+				scoreLabel.setForeground(Color.BLUE);
+				break;
+			default:
+				break;
+			}
+	    }
+		
 //		public void refresh() {
 //			robot.next();
 //			human.setChoice(s);
@@ -82,7 +105,8 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 		robot.next();
 		human.setChoice(s);
 		Player.play(human, robot);	// score++ for winner
-		
+		humanPanel.repaint();
+		robotPanel.repaint();
 		// refresh screen
 //logger.debug("onPressed callback: " + s);
 	}
