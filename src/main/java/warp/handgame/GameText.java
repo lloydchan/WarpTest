@@ -33,15 +33,15 @@ public class GameText {
 	public boolean checkGameEnd(Shapes player, Shapes robot) {
 		int result = Shapes.against(player, robot);
 		if (result > 0) {
-			logger.info("Player win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Player win\n\tPlayer:" + player.toString() + ", Computer:" + robot.toString());
 			return true;
 		}
 		else if (result < 0) {
-			logger.info("Computer win\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Computer win\n\tPlayer:" + player.toString() + ", Computer:" + robot.toString());
 			return true;
 		}
 		else {
-			logger.info("Tied\n\tPlayer:" + player.getText() + ", Computer:" + robot.getText());
+			logger.info("Tied\n\tPlayer:" + player.toString() + ", Computer:" + robot.toString());
 		}
 		return false;
 	}

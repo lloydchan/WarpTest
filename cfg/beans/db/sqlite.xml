@@ -6,5 +6,6 @@
 		<!-- <constructor-arg ref="LifeCycleContainer" />-->
 		<constructor-arg value="org.sqlite.JDBC" />
 		<constructor-arg value="jdbc:sqlite:handgame_db.db" />
+		<constructor-arg value="human_game" />
 	</bean>
 </beans>

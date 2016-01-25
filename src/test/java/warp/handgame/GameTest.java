@@ -11,7 +11,7 @@ public class GameTest extends TestCase {
 	GameText m_game = new GameText();
 	
 	/**
-	 * Rigourous Test :-)
+	 * Rigorous Test :-)
 	 */
 	public void testCheckGameEnd() {
 		

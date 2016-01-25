@@ -29,7 +29,13 @@ public class ShapesIconFactory {
 	}
 
 	public static List<ShapesIcon> getShapesIcon() {
-		return new ArrayList<ShapesIcon>(icons.values());
+		List<ShapesIcon> l = new ArrayList<ShapesIcon>();
+		for (ShapesIcon i: icons.values()) {
+			if (i.getShape() != Shapes.UNKNOWN)
+				l.add(i);
+		}
+//		return new ArrayList<ShapesIcon>(icons.values());
+		return l;
 	}
 	
 	public static void init(Map<String, String> shapes2File) {

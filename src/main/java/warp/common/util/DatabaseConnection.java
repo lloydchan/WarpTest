@@ -2,6 +2,7 @@ package warp.common.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -21,7 +22,10 @@ public abstract class DatabaseConnection {
 		this.db = db;
 	}
 	
-	public void connect() {
+	public boolean connect() {
+		if (isConn)
+			return isConn;
+		
 		try {
 			Class.forName(this.jdbc);
 			c = DriverManager.getConnection(this.db);
@@ -30,8 +34,13 @@ public abstract class DatabaseConnection {
 		} catch (Exception e) {
 			logger.error(e.getClass().getName() + ": " + e.getMessage());
 		}
+		return isConn;
 	}
 
+	public boolean isConnect() { 
+		return isConn;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	abstract public List query(String sql); 
 	
@@ -43,6 +52,7 @@ public abstract class DatabaseConnection {
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getClass().getName() + ": " + e.getMessage());
 			try {
 				isConn = false;

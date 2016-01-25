@@ -17,4 +17,15 @@ public enum GameState {
 	public static GameState fromInt(int i) {
 		return GameState.values()[i];
 	}
+	
+	public static GameState fromString(String text) {
+		if (text != null) {
+			for (GameState v : GameState.values()) {
+				if (text.equalsIgnoreCase(v.text)) {
+					return v;
+				}
+			}
+		}
+		return null;
+	}
 }
