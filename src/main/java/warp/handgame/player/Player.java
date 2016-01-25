@@ -1,13 +1,13 @@
 package warp.handgame.player;
 
-import warp.handgame.types.GameStatus;
+import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
 
 public class Player {
 	Shapes choice;
 	String name;
 	int score;
-	GameStatus state = GameStatus.NIL;
+	GameState state = GameState.NIL;
 	
 	public Player(String name) {
 		choice = Shapes.UNKNOWN;
@@ -33,18 +33,18 @@ public class Player {
 
 	public void win() {
 		score++;
-		state = GameStatus.WIN;
+		state = GameState.WIN;
 	}
 
 	public void lose() {
-		state = GameStatus.LOSE;
+		state = GameState.LOSE;
 	}
 
 	public void tied() {
-		state = GameStatus.TIED;
+		state = GameState.TIED;
 	}
 	
-	public GameStatus lastState() {
+	public GameState lastState() {
 		return state;
 	}
 	

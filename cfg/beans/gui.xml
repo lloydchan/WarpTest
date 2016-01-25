@@ -12,6 +12,8 @@
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
 
+	<import resource="db/sqlite.xml" />
+
 	<bean id="LifeCycleContainer" class="warp.common.LifeCycleContainer" />
 	
 	<bean id="ShapesIconInitializer"

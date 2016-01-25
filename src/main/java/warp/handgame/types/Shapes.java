@@ -19,7 +19,7 @@ public enum Shapes {
 		return this.text;
 	}
 
-	public static int size() {
+	private static int size() {
 		return Shapes.values().length;
 	}
 
