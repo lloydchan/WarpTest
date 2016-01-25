@@ -1,15 +1,16 @@
-package warp.handgame.machinelearning.twostate;
+package warp.handgame.util;
 
 import java.util.List;
 
 import junit.framework.TestCase;
-import warp.handgame.machinelearning.twostate.TwoStateDbConnector.GameResult;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
+import warp.handgame.util.GameResultDbConnector;
+import warp.handgame.util.GameResultDbConnector.GameResult;
 
-public class TwoStateDbConnectorTest extends TestCase {
+public class GameResultDbConnectorTest extends TestCase {
 
-	TwoStateDbConnector conn = new TwoStateDbConnector("org.sqlite.JDBC", "jdbc:sqlite:handgame_db.db",
+	GameResultDbConnector conn = new GameResultDbConnector("org.sqlite.JDBC", "jdbc:sqlite:handgame_db.db",
 			"human_game_test");
 
 	public void testCreateTable() {

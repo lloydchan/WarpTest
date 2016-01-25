@@ -1,4 +1,4 @@
-package warp.handgame.machinelearning.twostate;
+package warp.handgame.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,14 +7,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import warp.common.ILifeCycle;
 import warp.common.util.IQueryHandler;
 import warp.common.util.SqliteDbWrapper;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
 
-public class TwoStateDbConnector implements IQueryHandler {
+public class GameResultDbConnector implements IQueryHandler, ILifeCycle {
 
-	Logger logger = Logger.getLogger(TwoStateDbConnector.class);
+	Logger logger = Logger.getLogger(GameResultDbConnector.class);
 
 	public class GameResult {
 		public final int rounds;
@@ -50,11 +51,12 @@ public class TwoStateDbConnector implements IQueryHandler {
 	private final String SQL_INSERT_PREFIX;
 	private final String SQL_DROP_TABLE;
 	private final String SQL_DELETE_TABLE;
-	private final String SQL_VACUUM_COMMAND = "VACUUM"; // test if jdbc support
+//	// test if jdbc support
+//	private final String SQL_VACUUM_COMMAND = "VACUUM"; 
 
 	private SqliteDbWrapper sqliteDb;
 
-	public TwoStateDbConnector(String jdbc, String db, String table) {
+	public GameResultDbConnector(String jdbc, String db, String table) {
 		sqliteDb = new SqliteDbWrapper(jdbc, db, this);
 		TABLE_NAME = table;
 
@@ -128,5 +130,25 @@ public class TwoStateDbConnector implements IQueryHandler {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void start() {
+		boolean res = openConnection();
+		if (res)
+			res = createTableIfNotExist();
+	}
+
+	@Override
+	public void stop() {
+		close();
+	}
+
+	@Override
+	public void init() {
+	}
+
+	@Override
+	public void finit() {
 	}
 }

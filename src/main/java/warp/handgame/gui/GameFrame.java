@@ -3,7 +3,6 @@ package warp.handgame.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -27,9 +26,15 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 	
 	private final ShapesButtonPanel shapesButtonPanel;
 
-	public GameFrame(String title, String file) {
+	private final List<ILifeCycle> lifeCycles = new ArrayList<ILifeCycle>();
+	
+	public GameFrame(String title, String file, List<ILifeCycle> items) {
 		resultPanel = new ResultPanel();
 		shapesButtonPanel = new ShapesButtonPanel(resultPanel);
+		
+		for (ILifeCycle i : items) {
+			lifeCycles.add(i);
+		}
 		
 		setTitle(title);
 		getContentPane().setPreferredSize(new Dimension(800, 300));
@@ -77,6 +82,10 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	@Override
 	public void start() {
+		for (ILifeCycle item : lifeCycles) {
+			item.start();
+		}
+		
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(resultPanel, BorderLayout.NORTH);
 		this.getContentPane().add(shapesButtonPanel, BorderLayout.SOUTH);
@@ -90,31 +99,32 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+		for (ILifeCycle item : lifeCycles) {
+			item.stop();
+		}
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-
+		for (ILifeCycle item : lifeCycles) {
+			item.init();
+		}
 	}
 
 	@Override
 	public void finit() {
-		// TODO Auto-generated method stub
-
+		for (ILifeCycle item : lifeCycles) {
+			item.finit();
+		}
 	}
 
 	@Override
 	public void add(ILifeCycle lifecycle) {
-		// TODO Auto-generated method stub
-
+		// TODO unused now
 	}
 
 	@Override
 	public void remove(ILifeCycle lifecycle) {
-		// TODO Auto-generated method stub
-
+		// TODO unused now
 	}
 }

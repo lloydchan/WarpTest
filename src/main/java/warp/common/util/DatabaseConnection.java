@@ -29,7 +29,7 @@ public abstract class DatabaseConnection {
 		try {
 			Class.forName(this.jdbc);
 			c = DriverManager.getConnection(this.db);
-			logger.info("Opened database");
+			logger.info("Open database");
 			isConn = true;
 		} catch (Exception e) {
 			logger.error(e.getClass().getName() + ": " + e.getMessage());
@@ -47,7 +47,7 @@ public abstract class DatabaseConnection {
 	public boolean execute(String sql) {
 		Statement stmt = null;
 		try {
-			logger.debug("Execute sql : " + sql);
+			logger.debug("Execute : " + sql);
 			stmt = c.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -67,7 +67,7 @@ public abstract class DatabaseConnection {
 	
 	public void close() {
 		try {
-			logger.info("Closed database connection");
+			logger.info("Close database connection");
 			isConn = false;
 			c.close();
 		} catch (SQLException e1) {

@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 
 import warp.common.ILifeCycle;
-import warp.handgame.machinelearning.twostate.TwoStateDbConnector.GameResult;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
+import warp.handgame.util.GameResultDbConnector.GameResult;
 
 public class SqliteDbWrapper extends DatabaseConnection {
 	
