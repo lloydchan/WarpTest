@@ -1,5 +1,7 @@
 package warp.handgame.types;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -114,5 +116,14 @@ public enum Shapes {
 		}
 		}
 		return 0;
+	}
+	
+	public static List<Shapes> toList() {
+		List<Shapes> l = new ArrayList<Shapes>();
+		for (Shapes s: Shapes.values()) {
+			if (s != Shapes.UNKNOWN)
+				l.add(s);
+		}
+		return l;
 	}
 }
