@@ -17,14 +17,26 @@ public class TwoStateDbConnector implements IQueryHandler {
 	Logger logger = Logger.getLogger(TwoStateDbConnector.class);
 
 	public class GameResult {
-		final int rounds;
-		final Shapes shape;
-		final GameState state;
+		public final int rounds;
+		public final Shapes shape;
+		public final GameState state;
 
 		public GameResult(int rounds, Shapes shape, GameState state) {
 			this.rounds = rounds;
 			this.shape = shape;
 			this.state = state;
+		}
+
+		public int getRounds() {
+			return rounds;
+		}
+
+		public Shapes getShape() {
+			return shape;
+		}
+
+		public GameState getState() {
+			return state;
 		}
 	}
 
@@ -64,9 +76,8 @@ public class TwoStateDbConnector implements IQueryHandler {
 	}
 
 	public boolean addResult(int rounds, Shapes shape, GameState state) {
-		String sql = SQL_INSERT_PREFIX + rounds + ",'" + shape + "','" + state + "')";
-		System.out.println(sql);
-		boolean res = sqliteDb.insert(sql, rounds, shape, state);
+//		String sql = SQL_INSERT_PREFIX + rounds + ",'" + shape + "','" + state + "')";
+		boolean res = sqliteDb.insert(SQL_INSERT_PREFIX, rounds, shape, state);
 		return res;
 	}
 
