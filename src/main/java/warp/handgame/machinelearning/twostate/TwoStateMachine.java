@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import warp.common.ILifeCycle;
-import warp.handgame.player.Robot.Mode;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
 import warp.handgame.util.GameResultDbConnector;
@@ -72,6 +71,7 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 
 	private final GameResultDbConnector conn;
 	private TwoStateMap twoStateMap;
+	private Shapes last = Shapes.UNKNOWN;
 	
 	public TwoStateMachine(GameResultDbConnector conn) {
 		this.conn = conn;
@@ -110,10 +110,6 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 		}
 	}
 	
-//	public void onHumanMove(Shapes last, Shapes current) {
-//		twoStateMap.
-//	}
-	
 	@Override
 	public void start() {
 		List<GameResult> l = conn.getResults();
@@ -141,5 +137,14 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 	@Override
 	public Shapes predictNext(Shapes current) {
 		return twoStateMap.predictBy1stMove(current);
+	}
+
+	@Override
+	public void onResult(int rounds, Shapes move, GameState state) {
+		if (last != Shapes.UNKNOWN && rounds > 1) {
+			twoStateMap.add(last, move);
+		}
+		last = move;
+		logger.debug("Add human move: " + rounds + "," + move + "," + state);
 	}
 }

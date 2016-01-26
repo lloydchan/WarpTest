@@ -2,6 +2,7 @@ package warp.handgame.player;
 
 import org.apache.log4j.Logger;
 
+import warp.handgame.machinelearning.twostate.IPredictor;
 import warp.handgame.machinelearning.twostate.TwoStateMachine;
 import warp.handgame.types.Shapes;
 import warp.handgame.util.RandomHelper;
@@ -37,9 +38,9 @@ public class Robot extends Player {
 	}
 	
 	private Mode mode = Mode.NORMAL;
-	private final TwoStateMachine predictor;
+	private final IPredictor predictor;
 	
-	public Robot(String name, TwoStateMachine predictor) {
+	public Robot(String name, IPredictor predictor) {
 		super(name);
 		this.predictor = predictor;
 	}

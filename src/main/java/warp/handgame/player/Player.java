@@ -30,6 +30,10 @@ public class Player {
 	public String getScoreText() {
 		return String.valueOf(score);
 	}
+	
+	public GameState getState() {
+		return state;
+	}
 
 	public void win() {
 		score++;

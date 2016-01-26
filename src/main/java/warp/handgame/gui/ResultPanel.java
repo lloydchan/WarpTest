@@ -20,15 +20,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 
 import org.apache.log4j.Logger;
 
+import warp.handgame.machinelearning.twostate.IPredictor;
 import warp.handgame.machinelearning.twostate.TwoStateMachine;
 import warp.handgame.player.Player;
 import warp.handgame.player.Robot;
 import warp.handgame.player.Robot.Mode;
-import warp.handgame.types.IShapes;
 import warp.handgame.types.Shapes;
 
 public class ResultPanel extends JPanel implements ShapesButton.Event {
@@ -118,13 +120,15 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 			ButtonGroup group = new ButtonGroup();
 			group.add(simpleButton);
 			group.add(smartButton);
-
+			simpleButton.setHorizontalAlignment(SwingConstants.RIGHT);
+//			simpleButton.setBorder(new Border(1,1,1,1));
+			smartButton.setHorizontalAlignment(SwingConstants.LEFT);
+			
 			// Register a listener for the radio buttons.
 			simpleButton.addActionListener(this);
 			smartButton.addActionListener(this);
 
 			// Put the radio buttons in a column in a panel.
-
 			radioPanel = new JPanel(new BorderLayout());
 			radioPanel.add(nameLabel, BorderLayout.NORTH);
 			radioPanel.add(simpleButton, BorderLayout.WEST);
@@ -147,16 +151,22 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 
 	}
 
-	Player human;
-	Robot robot;
-	PlayerPanel humanPanel, robotPanel;
-
-	public ResultPanel(TwoStateMachine machine) {
+	private static final String ROUNDS_TEXT = "Rounds : ";
+	
+	private Player human;
+	private Robot robot;
+	private PlayerPanel humanPanel, robotPanel;
+	private IPredictor machine;
+	private int rounds = 0;
+	private JLabel lblRounds = new JLabel(ROUNDS_TEXT + rounds);
+	
+	public ResultPanel(IPredictor machine) {
 		this.human = new Player("Me");
 		this.robot = new Robot("Robot", machine);
-		humanPanel = new HumanPlayerPanel(human);
-		robotPanel = new RobotPlayerPanel(robot);
-
+		this.humanPanel = new HumanPlayerPanel(human);
+		this.robotPanel = new RobotPlayerPanel(robot);
+		this.machine = machine;
+		
 		this.setLayout(new FlowLayout());
 		// this.add(new JLabel("result Panel"), BorderLayout.NORTH);
 		this.add(humanPanel);
@@ -170,9 +180,13 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 		robot.next(s);
 		human.setChoice(s);
 		Player.play(human, robot); // score++ for winner
+		// refresh screen
 		humanPanel.repaint();
 		robotPanel.repaint();
-		// refresh screen
+		
+		rounds++;
+		lblRounds.setText(ROUNDS_TEXT + rounds);
+		machine.onResult(rounds, human.getChoice(), human.getState());
 		// logger.debug("onPressed callback: " + s);
 	}
 }
