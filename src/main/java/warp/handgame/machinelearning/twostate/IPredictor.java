@@ -5,5 +5,5 @@ import warp.handgame.types.Shapes;
 
 public interface IPredictor {
 	public Shapes predictNext(Shapes current);
-	public void onResult(int rounds, Shapes move, GameState state);
+	public void onResult(final int rounds, final Shapes move, final GameState state);
 }

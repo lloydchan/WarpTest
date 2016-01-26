@@ -144,7 +144,7 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 	}
 
 	@Override
-	public void onResult(int rounds, Shapes move, GameState state) {
+	public void onResult(final int rounds, final Shapes move, final GameState state) {
 		if (last != Shapes.UNKNOWN && rounds > 1) {
 			twoStateMap.add(last, move);
 		}

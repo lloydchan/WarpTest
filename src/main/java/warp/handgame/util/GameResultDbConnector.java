@@ -12,6 +12,7 @@ import warp.common.util.IQueryHandler;
 import warp.common.util.SqliteDbWrapper;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
+import warp.handgame.util.GameResultDbConnector.GameResult;
 
 public class GameResultDbConnector implements IQueryHandler, ILifeCycle {
 
@@ -112,7 +113,7 @@ public class GameResultDbConnector implements IQueryHandler, ILifeCycle {
 	 * construct query result
 	 */
 	@Override
-	public List onQueryResult(ResultSet rs) {
+	public List<GameResult> onQueryResult(ResultSet rs) {
 		List<GameResult> list = new ArrayList<GameResult>();
 		if (rs != null) {
 			try {

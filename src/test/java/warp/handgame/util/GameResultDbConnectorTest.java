@@ -27,6 +27,9 @@ public class GameResultDbConnectorTest extends TestCase {
 		boolean res = conn.openConnection();
 		assertTrue(res);
 
+		res = conn.createTableIfNotExist();
+		res = conn.clearResult();
+		
 		res = conn.addResult(1, Shapes.ROCK, GameState.WIN);
 		assertTrue(res);
 		

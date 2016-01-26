@@ -7,28 +7,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
 import warp.handgame.machinelearning.twostate.IPredictor;
-import warp.handgame.machinelearning.twostate.TwoStateMachine;
 import warp.handgame.player.Player;
 import warp.handgame.player.Robot;
 import warp.handgame.player.Robot.Mode;
