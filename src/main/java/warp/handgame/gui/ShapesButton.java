@@ -42,6 +42,9 @@ public class ShapesButton extends JButton implements ActionListener {
 		super.setContentAreaFilled(false);
 		this.setBackground(Color.WHITE);
 		this.setHoverBackgroundColor(Color.WHITE.brighter());
+		
+		this.setToolTipText("Choose one shape to throw");
+		
 		this.setFocusable(false);
 
 		this.addActionListener(this);

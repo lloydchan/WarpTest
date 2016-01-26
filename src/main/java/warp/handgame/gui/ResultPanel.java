@@ -105,11 +105,13 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 			simpleButton.setMnemonic(KeyEvent.VK_R);
 			simpleButton.setActionCommand(Mode.NORMAL.toString());
 			simpleButton.setSelected(true);
-
+			simpleButton.setToolTipText("Choose robot mode. Normal mode - randomly pick one move. Smart mode - learn from your move");
+			
 			JRadioButton smartButton = new JRadioButton(Mode.SMART.toString());
 			smartButton.setMnemonic(KeyEvent.VK_S);
 			smartButton.setActionCommand(Mode.SMART.toString());
-
+			smartButton.setToolTipText("Choose robot mode. Normal mode - randomly pick one move. Smart mode - learn from your move");
+			
 			// Group the radio buttons.
 			ButtonGroup group = new ButtonGroup();
 			group.add(simpleButton);
