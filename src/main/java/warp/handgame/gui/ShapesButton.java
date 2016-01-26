@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JButton;
 
@@ -43,8 +45,12 @@ public class ShapesButton extends JButton implements ActionListener {
 		this.setBackground(Color.WHITE);
 		this.setHoverBackgroundColor(Color.WHITE.brighter());
 		
-		this.setToolTipText("Choose one shape to throw");
-		
+		this.setToolTipText(
+				"<html>Game rules:<br>Arrow Shape(1) -> Shape(2) means Shape(1) win Shape(2).<br>E.g. Paper->Rock(Paper wins Rock)<br><img src=\""
+						+ ShapesButton.class.getResource("../../../images/rock-paper-scissors-lizard-spock.png")
+		    		+ "\">  ");
+//		this.setToolTipText("Choose one shape to throw");
+
 		this.setFocusable(false);
 
 		this.addActionListener(this);
