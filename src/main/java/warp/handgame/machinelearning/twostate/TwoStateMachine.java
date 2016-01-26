@@ -100,18 +100,7 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 			if (rounds > 1) { // more than one move
 				Shapes second = result.getShape();
 				twoStateMap.add(first, second);
-				// HashMap<Shapes, Integer> secondStates =
-				// twoStateMap.get(last);
-				// Integer count = secondStates.get(second);
-				// secondStates.put(second, count++);
-				// n++;
 			}
-			// else if (rounds == 1) {
-			// n = 1; // reset to first state
-			// }
-			// else {
-			// n++;
-			// }
 			first = result.getShape();
 		}
 	}

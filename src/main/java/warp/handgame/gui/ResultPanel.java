@@ -23,6 +23,7 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
@@ -120,19 +121,32 @@ public class ResultPanel extends JPanel implements ShapesButton.Event {
 			ButtonGroup group = new ButtonGroup();
 			group.add(simpleButton);
 			group.add(smartButton);
+
+			// layout
 			simpleButton.setHorizontalAlignment(SwingConstants.RIGHT);
-//			simpleButton.setBorder(new Border(1,1,1,1));
-			smartButton.setHorizontalAlignment(SwingConstants.LEFT);
-			
+			smartButton.setHorizontalAlignment(SwingConstants.RIGHT);
+
 			// Register a listener for the radio buttons.
 			simpleButton.addActionListener(this);
 			smartButton.addActionListener(this);
 
 			// Put the radio buttons in a column in a panel.
-			radioPanel = new JPanel(new BorderLayout());
-			radioPanel.add(nameLabel, BorderLayout.NORTH);
-			radioPanel.add(simpleButton, BorderLayout.WEST);
-			radioPanel.add(smartButton, BorderLayout.EAST);
+			radioPanel = new JPanel();
+			GridBagLayout gridbag = new GridBagLayout();
+			GridBagConstraints c = new GridBagConstraints();
+			radioPanel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+			radioPanel.setLayout(gridbag);
+			c.gridwidth = 1; // reset to the default
+			c.gridheight = 2;
+			c.weighty = 1.0;
+			addComponenet(nameLabel, gridbag, c, radioPanel);
+
+			c.anchor = GridBagConstraints.WEST;
+			c.weighty = 0.0; // reset to the default
+			c.gridwidth = GridBagConstraints.REMAINDER; // end row
+			c.gridheight = 1; // reset to the default
+			addComponenet(simpleButton, gridbag, c, radioPanel);
+			addComponenet(smartButton, gridbag, c, radioPanel);
 
 			this.add(radioPanel, BorderLayout.NORTH);
 		}
