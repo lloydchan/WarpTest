@@ -26,7 +26,7 @@ public class TwoStateMachineTest extends TestCase {
 		res = conn.addResult(1, Shapes.ROCK, GameState.WIN);
 		res = conn.addResult(2, Shapes.ROCK, GameState.WIN);
 		twoStateMachine.start();
-		Shapes nextMove = twoStateMachine.predict(Shapes.ROCK);
+		Shapes nextMove = twoStateMachine.predictNext(Shapes.ROCK);
 		assertEquals(Shapes.ROCK, nextMove);
 		
 		res = conn.addResult(1, Shapes.PAPER, GameState.WIN);
@@ -35,7 +35,7 @@ public class TwoStateMachineTest extends TestCase {
 		res = conn.addResult(4, Shapes.ROCK, GameState.WIN);
 
 		twoStateMachine.start();
-		nextMove = twoStateMachine.predict(Shapes.ROCK);
+		nextMove = twoStateMachine.predictNext(Shapes.ROCK);
 		assertEquals(Shapes.PAPER, nextMove);
 
 		conn.clearResult();

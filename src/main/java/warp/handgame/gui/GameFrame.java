@@ -16,6 +16,7 @@ import warp.common.ILifeCycle;
 import warp.common.ILifeCycleContainer;
 import warp.common.util.IStoppable;
 import warp.common.util.IStoppableController;
+import warp.handgame.machinelearning.twostate.TwoStateMachine;
 
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppableController, WindowListener {
@@ -28,8 +29,8 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 
 	private final List<ILifeCycle> lifeCycles = new ArrayList<ILifeCycle>();
 	
-	public GameFrame(String title, String file, List<ILifeCycle> items) {
-		resultPanel = new ResultPanel();
+	public GameFrame(String title, String file, TwoStateMachine machine, List<ILifeCycle> items) {
+		resultPanel = new ResultPanel(machine);
 		shapesButtonPanel = new ShapesButtonPanel(resultPanel);
 		
 		for (ILifeCycle i : items) {
@@ -37,7 +38,7 @@ public class GameFrame extends JFrame implements ILifeCycleContainer, IStoppable
 		}
 		
 		setTitle(title);
-		getContentPane().setPreferredSize(new Dimension(800, 300));
+		getContentPane().setPreferredSize(new Dimension(800, /*300*/400));
 		setBackground(Color.WHITE);
 		setResizable(false);
 		addWindowListener(this);

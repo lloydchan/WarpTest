@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import warp.common.ILifeCycle;
+import warp.handgame.player.Robot.Mode;
 import warp.handgame.types.GameState;
 import warp.handgame.types.Shapes;
 import warp.handgame.util.GameResultDbConnector;
@@ -18,7 +19,7 @@ import warp.handgame.util.GameResultDbConnector.GameResult;
  * description: 
  * the two state map built from historical result and find the next step by the first step with higher probability
  */
-public class TwoStateMachine implements ILifeCycle{
+public class TwoStateMachine implements ILifeCycle, IPredictor {
 
 	Logger logger = Logger.getLogger(TwoStateMachine.class);
 	
@@ -109,10 +110,6 @@ public class TwoStateMachine implements ILifeCycle{
 		}
 	}
 	
-	public Shapes predict(Shapes move) {
-		return twoStateMap.predictBy1stMove(move);
-	}
-	
 //	public void onHumanMove(Shapes last, Shapes current) {
 //		twoStateMap.
 //	}
@@ -139,5 +136,10 @@ public class TwoStateMachine implements ILifeCycle{
 	public void finit() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Shapes predictNext(Shapes current) {
+		return twoStateMap.predictBy1stMove(current);
 	}
 }
