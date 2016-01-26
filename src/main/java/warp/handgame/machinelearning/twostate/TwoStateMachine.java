@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -14,40 +17,40 @@ import warp.handgame.util.GameResultDbConnector;
 import warp.handgame.util.GameResultDbConnector.GameResult;
 
 /**
- * @author Lloyd
- * description: 
- * the two state map built from historical result and find the next step by the first step with higher probability
+ * @author Lloyd description: the two state map built from historical result and
+ *         find the next step by the first step with higher probability
  */
 public class TwoStateMachine implements ILifeCycle, IPredictor {
 
 	Logger logger = Logger.getLogger(TwoStateMachine.class);
-	
-	// 1) the two state map built from historical result, 
+
+	// 1) the two state map built from historical result,
 	// 2) update each human move,
-	// 3) using the first step state to find the next step with highest probabilities
+	// 3) using the first step state to find the next step with highest
+	// probabilities
 	class TwoStateMap {
 		private Map<String, Integer> twoStates = null;
-		
+
 		public TwoStateMap() {
 			twoStates = new HashMap<String, Integer>();
-			for (Shapes first : Shapes.toList()) {	// 1st state
-				for (Shapes second : Shapes.toList()) {	// 2nd state
+			for (Shapes first : Shapes.toList()) { // 1st state
+				for (Shapes second : Shapes.toList()) { // 2nd state
 					String key = toKey(first, second);
 					twoStates.put(key, new Integer(0));
 				}
 			}
 		}
-		
+
 		int size() {
 			return twoStates.size();
 		}
-		
+
 		void add(Shapes first, Shapes second) {
 			String key = toKey(first, second);
 			int count = twoStates.get(key);
-			twoStates.put(key, new Integer(count+1));
+			twoStates.put(key, new Integer(count + 1));
 		}
-		
+
 		Shapes predictBy1stMove(Shapes first) {
 			int max = Integer.MIN_VALUE;
 			Shapes result = Shapes.UNKNOWN;
@@ -63,7 +66,7 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 			}
 			return result;
 		}
-		
+
 		private String toKey(Shapes s1, Shapes s2) {
 			return s1.toString() + "_" + s2.toString();
 		}
@@ -72,7 +75,9 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 	private final GameResultDbConnector conn;
 	private TwoStateMap twoStateMap;
 	private Shapes last = Shapes.UNKNOWN;
-	
+	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	private static final long SHUTDOWN_IN_ONE_SECOND = 1;
+
 	public TwoStateMachine(GameResultDbConnector conn) {
 		this.conn = conn;
 		twoStateMap = new TwoStateMap();
@@ -87,29 +92,30 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 	 */
 	public void buildTwoStateMap(List<GameResult> l) {
 		logger.info("Build two state map with historical data");
-		twoStateMap = new TwoStateMap();	// reset
+		twoStateMap = new TwoStateMap(); // reset
 		Shapes first = Shapes.UNKNOWN;
-		
-		for (GameResult result : l){
+
+		for (GameResult result : l) {
 			int rounds = result.getRounds();
-			if (rounds > 1) {	// more than one move
+			if (rounds > 1) { // more than one move
 				Shapes second = result.getShape();
 				twoStateMap.add(first, second);
-//				HashMap<Shapes, Integer> secondStates = twoStateMap.get(last);
-//				Integer count = secondStates.get(second);
-//				secondStates.put(second, count++);
-//				n++;
+				// HashMap<Shapes, Integer> secondStates =
+				// twoStateMap.get(last);
+				// Integer count = secondStates.get(second);
+				// secondStates.put(second, count++);
+				// n++;
 			}
-//			else if (rounds == 1) {
-//				n = 1;	// reset to first state
-//			}
-//			else {
-//				n++;
-//			}
+			// else if (rounds == 1) {
+			// n = 1; // reset to first state
+			// }
+			// else {
+			// n++;
+			// }
 			first = result.getShape();
 		}
 	}
-	
+
 	@Override
 	public void start() {
 		List<GameResult> l = conn.getResults();
@@ -118,20 +124,29 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		executor.shutdown();
+		try {
+			if (!executor.awaitTermination(SHUTDOWN_IN_ONE_SECOND, TimeUnit.SECONDS)) {
+				logger.error("Executor did not terminate in the specified time.");
+				List<Runnable> droppedTasks = executor.shutdownNow();
+				logger.info("Executor was abruptly shut down. " + droppedTasks.size() + " tasks will not be executed.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Executor await terminate interrupt");
+		}
 	}
 
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void finit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -146,5 +161,12 @@ public class TwoStateMachine implements ILifeCycle, IPredictor {
 		}
 		last = move;
 		logger.debug("Add human move: " + rounds + "," + move + "," + state);
+
+		// insert db
+		executor.execute(new Runnable() {
+			public void run() {
+				conn.addResult(rounds, move, state);
+			}
+		});
 	}
 }
